@@ -1,7 +1,7 @@
 <template>
   <div :class="['vue-tel-input-vuetify', wrapperClasses]">
     <div class="country-code">
-      <v-select
+      <v-autocomplete
         ref="countryInput"
         v-model="countryCode"
         :append-icon="appendIcon"
@@ -26,15 +26,17 @@
         item-text="name"
         item-value="iso2"
         return-object
+        :persistent-hint="true"
+        :hint="'z.B. +49'"
       >
-        <template v-slot:selection>
-          <div :class="activeCountry.iso2.toLowerCase()" class="vti__flag" />
+        <template v-slot:selection="data">
+          <span>+{{data.item.dialCode}}</span>
         </template>
         <template v-slot:item="data">
           <span :class="data.item.iso2.toLowerCase()" class="vti__flag" />
-          <span>{{ data.item.name }} {{ `+${data.item.dialCode}` }}</span>
+          <span>{{ data.item.name }}</span>
         </template>
-      </v-select>
+      </v-autocomplete>
     </div>
     <v-text-field
       ref="input"
@@ -513,6 +515,7 @@ export default {
       this.$emit('input', this.phoneText, this.phoneObject);
     },
     activeCountry(value) {
+      // console.log(value);
       if (value && value.iso2) {
         this.$emit('country-changed', value);
       }
@@ -552,8 +555,8 @@ export default {
             return;
           }
         }
-        const fallbackCountry = this.findCountry(this.preferredCountries[0])
-          || this.filteredCountries[0];
+        // const fallbackCountry = this.findCountry(this.preferredCountries[0])
+        //   || this.filteredCountries[0];
         /**
          * 3. Check if fetching country based on user's IP is allowed, set it as the default country
          */
@@ -569,7 +572,7 @@ export default {
               /**
                * 4. Use the first country from preferred list (if available) or all countries list
                */
-              this.choose(fallbackCountry);
+              // this.choose(fallbackCountry);
             })
             .finally(() => {
               resolve();
@@ -578,7 +581,7 @@ export default {
           /**
            * 4. Use the first country from preferred list (if available) or all countries list
            */
-          this.choose(fallbackCountry);
+          // this.choose(fallbackCountry);
           resolve();
         }
       });
@@ -609,7 +612,7 @@ export default {
       };
     },
     choose(country, toEmitInputEvent = false) {
-      this.activeCountry = country || this.activeCountry || {};
+      this.activeCountry = country || {}; // || this.activeCountry || {};
       if (
         this.phone
         && this.phone[0] === '+'
@@ -778,6 +781,8 @@ export default {
       this.open = false;
     },
     onChangeCountryCode() {
+      console.log('change');
+      console.log(this.countryCode);
       this.choose(this.countryCode, true);
     },
   },

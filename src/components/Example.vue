@@ -1,13 +1,19 @@
 <template>
   <v-container>
     <v-row justify="center">
-      <v-col cols="6">
+      <v-col cols="12" md="6">
         <vue-tel-input-vuetify
           v-model="myPhone"
-          :preferred-countries="['id', 'gb', 'ua', 'us']"
+          :preferred-countries="['de', 'at', 'nl']"
           :valid-characters-only="true"
-          select-label="Code"
+          select-label="Vorwahl"
+          label="Telefonnummer (ohne Ländervorwahl)"
+          placeholder=""
+          :persistentHint="true"
+          :disabledFetchingCountry="true"
+          defaultCountry="''"
           @input="onInput"
+          hint="170 12312312"
         />
       </v-col>
     </v-row>
@@ -26,7 +32,7 @@
           </span>
           <span>
             Country:
-            <strong>{{ phone.country }}</strong>
+            <strong>{{ phone }}</strong>
           </span>
         </div>
       </v-col>

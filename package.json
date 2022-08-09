@@ -1,7 +1,7 @@
 {
-  "name": "vue-tel-input-vuetify",
+  "name": "@lukwil/vue-tel-input-vuetify",
   "version": "1.5.3",
-  "description": "International Telephone Input with Vuetify",
+  "description": "International Telephone Input with Vuetify, based on https://github.com/yogakurniawan/vue-tel-input-vuetify",
   "author": "Yoga Kurniawan <yogaygk@gmail.com>",
   "scripts": {
     "build": "set NODE_ENV=production && npm run build:browser && npm run build:es && npm run build:umd",
@@ -77,7 +77,7 @@
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
-  "homepage": "https://yogakurniawan.github.io/vue-tel-input-vuetify/",
+  "homepage": "https://github.com/lukwil/vue-tel-input-vuetify",
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
@@ -97,6 +97,6 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yogakurniawan/vue-tel-input-vuetify.git"
+    "url": "https://github.com/lukwil/vue-tel-input-vuetify.git"
   }
 }
